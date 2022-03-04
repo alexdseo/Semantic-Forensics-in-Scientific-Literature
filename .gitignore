@@ -5,3 +5,4 @@
 *.pyc
 *.history
 *.py.bak
+*.ipynb_checkpoints

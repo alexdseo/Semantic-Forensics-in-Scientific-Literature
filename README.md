@@ -25,7 +25,7 @@ Author” including “Affiliation University”, “Duration of Career (Years)�
 obtained (e.g., “PhD”, “MS”) and “Degree Area” (e.g., Computer Science). 
 
 Using this new dataset and Tika Similarity to evaluate data similarity between each author by calculating and 
-exploring different distance metrics (Cosine similarity, Levenshtein Distance, Jaro-Wrinkler Distance etc.),
+exploring different distance metrics (Cosine similarity, Levenshtein Distance, Jaro-Winkler Distance etc.),
 we will aim to find a pattern that will emerge.
 For example, you could posit that those with a Masters in
 Computer Science, with 50 years of experience and 100 students in the lab, may not be

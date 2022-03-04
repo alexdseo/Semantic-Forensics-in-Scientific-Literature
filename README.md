@@ -39,7 +39,7 @@ within the data and ask questions of your new augmented Bik et al dataset.
 This project demonstrates the usage of the [Tika-Python](http://github.com/chrismattmann/tika-python) package (Python port of Apache Tika) to compute file similarity based on metadata features. [Original project](https://github.com/chrismattmann/tika-img-similarity) guides to use local terminal to run the files and packages, however, in our project we will use Jupyter notbook to demonstrate our work to make it more interactive. Please check our report about this project too!
 
 
-[Main Notebook file](https://github.com/alexdseo/tika-similarity/blob/master/DataSimilarity_Tika.ipynb)
+- [Main Notebook file](https://github.com/alexdseo/tika-similarity/blob/master/DataSimilarity_Tika.ipynb)
 
 
 ---

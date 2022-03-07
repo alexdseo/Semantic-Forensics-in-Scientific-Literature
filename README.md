@@ -17,7 +17,7 @@ TSV (TSV) format (MIME type: text/tab-separated-values). Looking at the Bik et a
 data is available that could be joined with this information” to affect its Five V’s (volume, velocity, variety, veracity and value)
 intentionally, or unintentionally. 
 
-In this project, we will scrap additional additional information about each
+In this project, we will scrap additional information about each
 author for each of the provided publications and collecting and joining it to the Bik
 dataset. For example, “Lab Size (number of students)”,
 “Publication Rate”, “Other Journals Published In” and some information about “First
@@ -36,7 +36,7 @@ within the data and ask questions of your new augmented Bik et al dataset.
 
 ## Code & Report
 
-This project demonstrates the usage of the [Tika-Python](http://github.com/chrismattmann/tika-python) package (Python port of Apache Tika) to compute file similarity based on metadata features. [Original project](https://github.com/chrismattmann/tika-img-similarity) guides to use local terminal to run the files and packages, however, in our project we will use Jupyter notbook to demonstrate our work to make it more interactive. Please check our report about this project too!
+This project demonstrates the usage of the [Tika-Python](http://github.com/chrismattmann/tika-python) package (Python port of Apache Tika) to compute file similarity based on metadata features. [Original project](https://github.com/chrismattmann/tika-img-similarity) guides to use local terminal to run the files and packages, however, in our project we will use Jupyter notebook to demonstrate our work to make it more interactive. Please check our report about this project too!
 
 
 - [Main Notebook file](https://github.com/alexdseo/tika-similarity/blob/master/DataSimilarity_Tika.ipynb)
@@ -63,7 +63,7 @@ This project demonstrates the usage of the [Tika-Python](http://github.com/chris
 * Matt Fishman, USC
 * Audrey Lin, USC
 * Andy Xiang, USC
-* Sarah Chu, USC
+* Hsuan Sarah Chu, USC
 * Elena Pilch, USC
 
 ## License

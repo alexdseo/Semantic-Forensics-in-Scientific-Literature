@@ -19,6 +19,7 @@
 
 from tika import parser
 from vector import Vector
+from features import *
 import os, itertools, argparse, csv
 from requests import ConnectionError
 from time import sleep
@@ -45,7 +46,7 @@ def filterFiles(inputDir, acceptTypes):
     return filename_list
 
 
-def computeScores(inputDir, outCSV, acceptTypes):
+def computeScores_JW(inputDir, outCSV, acceptTypes):
     
     with open(outCSV, "w") as outF:
         a = csv.writer(outF, delimiter=',')
@@ -54,18 +55,18 @@ def computeScores(inputDir, outCSV, acceptTypes):
         files_tuple = itertools.combinations(filterFiles(inputDir, acceptTypes), 2)
         for file1, file2 in files_tuple:
             try:
-                row_cosine_distance = [file1, file2]
+                row_jw_distance = [file1, file2]
             
                 file1_parsedData = parser.from_file(file1)
                 file2_parsedData = parser.from_file(file2)
            
-                v1 = Vector(file1, file1_parsedData["metadata"])
-                v2 = Vector(file2, file2_parsedData["metadata"])
+                #v1 = Vector(file1, file1_parsedData["metadata"])
+                #v2 = Vector(file2, file2_parsedData["metadata"])
             
 
-                row_cosine_distance.append(v1.cosTheta(v2))            
+                row_jw_distance.append(jaro_winkler_similarity(''.join(str(file1)), ''.join(str(file2))))            
 
-                a.writerow(row_cosine_distance)  
+                a.writerow(row_jw_distance)  
             except ConnectionError:
                 sleep(1)
             except KeyError:
@@ -74,44 +75,37 @@ def computeScores(inputDir, outCSV, acceptTypes):
 '''
 Takes an input file and generates similarity scores for all combinations of row entries.
 '''
-def computeScores2(inputFile, raw_df, outCSV):
+def computeScores2_JW(inputFile, outCSV):
     with open(outCSV, "w") as outF:
         a = csv.writer(outF, delimiter=',')
         a.writerow(["x-coordinate", "y-coordinate", "Similarity_score"])
-
+        
         file1_parsedData = parser.from_file(inputFile)
         
-        #df= pd.read_csv(inputFile, encoding= 'unicode_escape')
-        df=raw_df
+        #df= pd.read_csv(inputFile, sep='\t', encoding= 'unicode_escape')
+        df= pd.read_csv(inputFile, encoding= 'unicode_escape')
         row_list=df.values.tolist() 
         
         #row_list = ast.literal_eval(str([file1_parsedData["content"].strip()]))
         #row_list = ast.literal_eval(str(file1_parsedData["content"].strip().split('\t')))
         
+        config_bik=["string","string","string","string","int","string",
+                "double","double","double","double","string","int","date","double",
+                "double","double","int"] #Reported column: CHECK changed to 0
+
         rows_tuple = itertools.combinations(row_list, 2)
-        
-        config_bik = ['str','str','str','str','int','float','float','float','float','float','str','int',
-                      'str','float','float','float','int','str','str', 'str','str','str','str', 'float','str','str','str',
-                      'float','str','float','float','float', 'float','float','float','float','float','float','float','float',
-                      'str','str','float', 'float', 'float', 'float','float','float','str','float','str','str', 'float',
-                      'str', 'str', 'str','float','str','float', 'float','float','float','str', 'str','str','str','float',
-                      'str', 'str','str','str', 'str','float']
         
         for row1, row2 in rows_tuple:
 
             try:
-                row_cosine_distance = [row_list.index(row1), row_list.index(row2)]
+                row_jw_distance = [row_list.index(row1), row_list.index(row2)]
 
-                v1 = Vector(inputFile, row1, config_bik)
-                v2 = Vector(inputFile, row2, config_bik)
+                #v1 = Vector(inputFile, row1, config_bik)
+                #v2 = Vector(inputFile, row2, config_bik)
+
+                row_jw_distance.append(jaro_winkler_similarity(''.join(str(row1)), ''.join(str(row2))))
                 
-                #print(v1,v2)
-                #print(v1.getMagnitude(),v2.getMagnitude())
-                #print(v1.cosTheta(v2))
-
-                row_cosine_distance.append(v1.cosTheta(v2))
-
-                a.writerow(row_cosine_distance)
+                a.writerow(row_jw_distance)
             except ConnectionError:
                 sleep(1)
             except KeyError:
@@ -120,14 +114,14 @@ def computeScores2(inputFile, raw_df, outCSV):
 
 if __name__ == "__main__":
 
-    argParser = argparse.ArgumentParser('Cosine similarity based on Metadata values')
+    argParser = argparse.ArgumentParser('Jaro-Winkler similarity based on Metadata values')
     argParser.add_argument('--inputFile', required=False, help='path to file')
     argParser.add_argument('--inputDir', required=False, help='path to directory containing files')
-    argParser.add_argument('--outCSV', required=True, help='path to directory for storing the output CSV File, containing pair-wise Cosine similarity Scores')
+    argParser.add_argument('--outCSV', required=True, help='path to directory for storing the output CSV File, containing pair-wise Jaro-Winkler similarity Scores')
     argParser.add_argument('--accept', nargs='+', type=str, help='Optional: compute similarity only on specified IANA MIME Type(s)')
     args = argParser.parse_args()
 
     if args.inputDir and args.outCSV:
-        computeScores(args.inputDir, args.outCSV, args.accept)
+        computeScores_JW(args.inputDir, args.outCSV, args.accept)
     if args.inputFile and args.outCSV:
-        computeScores2(args.inputFile, args.outCSV)
+        computeScores2_JW(args.inputFile, args.outCSV)

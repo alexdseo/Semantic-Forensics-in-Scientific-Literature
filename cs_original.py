@@ -23,7 +23,6 @@ import os, itertools, argparse, csv
 from requests import ConnectionError
 from time import sleep
 import ast
-import pandas as pd
 
 def filterFiles(inputDir, acceptTypes):
     filename_list = []
@@ -47,7 +46,7 @@ def filterFiles(inputDir, acceptTypes):
 
 def computeScores(inputDir, outCSV, acceptTypes):
     
-    with open(outCSV, "w") as outF:
+    with open(outCSV, "wb") as outF:
         a = csv.writer(outF, delimiter=',')
         a.writerow(["x-coordinate","y-coordinate","Similarity_score"])        
 
@@ -74,40 +73,22 @@ def computeScores(inputDir, outCSV, acceptTypes):
 '''
 Takes an input file and generates similarity scores for all combinations of row entries.
 '''
-def computeScores2(inputFile, raw_df, outCSV):
-    with open(outCSV, "w") as outF:
+def computeScores2(inputFile, outCSV):
+    with open(outCSV, "wb") as outF:
         a = csv.writer(outF, delimiter=',')
         a.writerow(["x-coordinate", "y-coordinate", "Similarity_score"])
 
         file1_parsedData = parser.from_file(inputFile)
-        
-        #df= pd.read_csv(inputFile, encoding= 'unicode_escape')
-        df=raw_df
-        row_list=df.values.tolist() 
-        
-        #row_list = ast.literal_eval(str([file1_parsedData["content"].strip()]))
-        #row_list = ast.literal_eval(str(file1_parsedData["content"].strip().split('\t')))
-        
+        row_list = ast.literal_eval(file1_parsedData["content"])
+
         rows_tuple = itertools.combinations(row_list, 2)
-        
-        config_bik = ['str','str','str','str','int','float','float','float','float','float','str','int',
-                      'str','float','float','float','int','str','str', 'str','str','str','str', 'float','str','str','str',
-                      'float','str','float','float','float', 'float','float','float','float','float','float','float','float',
-                      'str','str','float', 'float', 'float', 'float','float','float','str','float','str','str', 'float',
-                      'str', 'str', 'str','float','str','float', 'float','float','float','str', 'str','str','str','float',
-                      'str', 'str','str','str', 'str','float']
-        
         for row1, row2 in rows_tuple:
 
             try:
                 row_cosine_distance = [row_list.index(row1), row_list.index(row2)]
 
-                v1 = Vector(inputFile, row1, config_bik)
-                v2 = Vector(inputFile, row2, config_bik)
-                
-                #print(v1,v2)
-                #print(v1.getMagnitude(),v2.getMagnitude())
-                #print(v1.cosTheta(v2))
+                v1 = Vector(inputFile, row1)
+                v2 = Vector(inputFile, row2)
 
                 row_cosine_distance.append(v1.cosTheta(v2))
 

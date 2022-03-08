@@ -40,6 +40,7 @@ This project demonstrates the usage of the [Tika-Python](http://github.com/chris
 
 
 - [Main Notebook file](https://github.com/alexdseo/tika-similarity/blob/master/DataSimilarity_Tika.ipynb)
+- [Report](https://github.com/alexdseo/tika-similarity/blob/master/Report.pdf)
 
 
 ---

@@ -6,4 +6,7 @@
 *.history
 *.py.bak
 *.ipynb_checkpoints
-*.DS_Store
+
+
+#DS store
+.DS_Store

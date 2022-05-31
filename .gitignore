@@ -7,6 +7,5 @@
 *.py.bak
 *.ipynb_checkpoints
 
-
-#DS store
+#DS_Store
 .DS_Store

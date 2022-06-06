@@ -1,6 +1,6 @@
 # Part 4 feature extraction
 
-`Part4.ipynb` loads `Bik.tsv` into a dataframe, scrapes Research Gate to extract 7 features for 214 papers, adds the features to the dataframe, and exports it as `Bik_pt4.csv`. Because web scraping takes so long, the features have been saved to `Part4features.ipynb` and imported into `Part4.ipynb` for easy access. The variables acessible from `Part4features.ipynb` include:
+`AddFeature.ipynb` loads `Bik.tsv` into a dataframe, scrapes Research Gate to extract 7 features for 214 papers, adds the features to the dataframe, and exports it as `Bik_pt4.csv`. Because web scraping takes so long, the features have been saved to `AF2.ipynb` and imported into `AddFeature.ipynb` for easy access. The variables acessible from `AF2.ipynb` include:
 
 - `DOI_URLS`: URLs for journal pages
 - `first_author_URLS`: URLs for first author Research Gate profile
@@ -26,8 +26,8 @@ To update the original Bik dataset with the saved features (scraped for you), ru
 ## Files
 
 - `Bik.tsv` - original dataset
-- `Part4.ipynb` - main script
-- `Part4features.ipynb` - extracted features
+- `AddFeature.ipynb` - main script
+- `AF2.ipynb` - extracted features
 - `chromedriver.exe` - download the appropriate version as per Requirements
 - `Bik_pt4.csv` - output
 
